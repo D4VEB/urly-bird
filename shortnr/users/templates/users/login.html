@@ -1,0 +1,13 @@
+{% extends "shornr/../../../global/base.html" %}
+
+{% block title %}Log in to your Shortnr{% endblock %}
+
+{% block content %}
+    <h1>Log In To Your Shortnr</h1>
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {{ form.as_p }}
+        <input type="submit" name="submit" value="Log In!">
+    </form>
+{% endblock %}

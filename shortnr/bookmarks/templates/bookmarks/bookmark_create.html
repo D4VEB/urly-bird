@@ -1,0 +1,11 @@
+{% extends "bookmark_base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <h1>Create Bookmark</h1>
+    <form method="post" action="{% url "bookmark_create" %}" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons submit="Create" %}{% endbuttons %}
+    </form>
+{% endblock %}

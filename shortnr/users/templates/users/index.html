@@ -1,0 +1,36 @@
+{% extends "bookmark_base.html" %}
+
+{% block title %}User's Bookmarks{% endblock %}
+
+{% block content %}
+<h1>{{ user.username }}</h1>
+<a href="{% url 'user_bookmarks' %}">User's Bookmarks</a>
+<a href="{% url 'user_profile' user.id %}">User's Profile</a>
+ # TODO: add display for all of the user's bookmarks
+{% endfor %}
+
+{% bootstrap_pagination page_obj %}
+{% endblock %}
+
+{% block content %}
+    <h1>Update Bookmark</h1>
+    <form method="post" action="{% url "bookmark_update" bookmark.id %}">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <input type="submit" name="submit" value="Update!">
+    </form>
+{% endblock %}
+
+
+{% block title %}Delete Bookmark{% endblock %}
+
+{% block content %}
+    <h1>Delete Bookmark</h1>
+<form action="{% url 'bookmark_delete' bookmark.id %}"
+        method="post">{% csrf_token %}
+    <p>Do you want to permanently delete this bookmark?
+            "{{ object }}"?</p>
+    <input type="submit" value="Delete Bookmark!" />
+</form>
+
+{% endblock %}
