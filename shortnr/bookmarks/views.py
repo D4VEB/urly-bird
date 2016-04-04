@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse_lazy
 # Create your views here.
 from django.views.generic import CreateView, DeleteView, UpdateView, ListView, DetailView
 
+from bookmarks.forms import BookmarkForm
 from bookmarks.models import Bookmark
 
 
@@ -67,7 +68,7 @@ class UserList(ListView):
     template_name_suffix = "_list"
 
 class UserDetail(DetailView):
-    model =User
+    model = User
     context_object_name = "users"
     template_name_suffix = "_detail"
 

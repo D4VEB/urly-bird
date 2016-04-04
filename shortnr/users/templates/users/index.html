@@ -17,7 +17,7 @@
     <form method="post" action="{% url "bookmark_update" bookmark.id %}">
         {% csrf_token %}
         {{ form.as_ul }}
-        <input type="submit" name="submit" value="Update!">
+        <input type="submit" name="submit" value="Update Bookmark!">
     </form>
 {% endblock %}
 
