@@ -1,2 +1,12 @@
+{% extends "bookmark_base.html" %}
+{% load bootstrap3 %}
 
 
+{% block content %}
+    <h1>Update Bookmark</h1>
+    <form method="post" action="{% url "bookmark_update" bookmark.id %}">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <input type="submit" name="submit" value="Update Bookmark!">
+    </form>
+{% endblock %}

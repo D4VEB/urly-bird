@@ -13,7 +13,7 @@ from django.db import models
 
 class Bookmark(models.Model):
     full_url = models.URLField(max_length=300)
-    bookmark_description = description = models.CharField\
+    bookmark_description = models.CharField\
         (max_length=200, null=True, blank=True)
     # I used null=True and blank = True here
     # because the bookmark_description is optional
