@@ -12,7 +12,7 @@
 {% bootstrap_pagination page_obj %}
 {% endblock %}
 
-{% block content %}
+{% block content1 %}
     <h1>Update Bookmark</h1>
     <form method="post" action="{% url "bookmark_update" bookmark.id %}">
         {% csrf_token %}
@@ -22,9 +22,9 @@
 {% endblock %}
 
 
-{% block title %}Delete Bookmark{% endblock %}
+{% block title1 %}Delete Bookmark{% endblock %}
 
-{% block content %}
+{% block content2 %}
     <h1>Delete Bookmark</h1>
 <form action="{% url 'bookmark_delete' bookmark.id %}"
         method="post">{% csrf_token %}

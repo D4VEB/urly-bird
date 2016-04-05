@@ -60,10 +60,18 @@ class BookmarkList(ListView):
     context_object_name = "bookmarks"
     paginate_by = 10
 
+
 class BookmarkDetail(DetailView):
     model = Bookmark
     template_name_suffix = "_detail"
-    context_object_name = "bookmarks"
+    context_object_name = "bookmark"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        recent_five = self.request.session.get("recent_five", {})
+        recent_five.annotate((self.object.id, self.object.title))
+        self.request.session["recent_five"] = recent_five
+        return context
 
 class UserList(ListView):
     queryset = User.objects.order_by("-last_login")
@@ -107,7 +115,7 @@ class UserDetail(ListView):
 
             context["bookmarks"] = self.object.bookmark_set.filter(
                 click__created_at__gt=last_month).annotate(
-                num_count=Count('click')).order_by('-num_count')
+                click_count=Count('click')).order_by('-click_count')
             return context
 
 class ShortLink(RedirectView):

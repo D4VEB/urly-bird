@@ -1,0 +1,13 @@
+{% extends 'bookmarks/bookmark_base.html' %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+    <h1>Upload a Profile Image</h1>
+    <form method="post" action="{% url 'upload_profilepic' user.id %}" enctype='multipart/form-data'>
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" name="submit" value="Upload Profile Pic!">
+    </form>
+
+{% endblock %}

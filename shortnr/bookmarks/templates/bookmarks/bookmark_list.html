@@ -30,5 +30,8 @@
             <h2>No Bookmarks Saved Yet</h2>
         {% endif %}
 
+    {{ request.session.recent_five }}
+
     {% bootstrap_pagination page_obj %}
+
 {% endblock %}

@@ -21,6 +21,7 @@ class Bookmark(models.Model):
     # count = models.IntegerField(default=0)
     user = models.ForeignKey(User)
 
+
     @property
     def url_key(self):
         """
