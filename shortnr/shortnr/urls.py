@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from bookmarks.views import ShortLink
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^bookmarks/', include("bookmarks.urls")),
+    url(r'^short/(?P<url_key>\w+)/$', ShortLink.as_view(),
+        name="redirect_link"),
 ]
+

@@ -1,20 +1,18 @@
-{% extends "bookmark_base.html" %}
+{% extends "bookmarks/bookmark_base.html" %}
 
-{% block title %}Bookmark Detail - {{ bookmark.bookmark_description }}{% endblock %}
+{% block title %}Bookmark Detail{% endblock %}
 
 {% block content %}
 
-    <h1>Bookmark Detail</h1>
-    {% if user.is_authenticated %}
-        Hello, {{ user.username }}
-    {% endif %}
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-success">{{ bookmark.title }}</li>
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">{{ chirp.subject }}</div>
-        <div class="panel-body">
-            {{ bookmark.bookmark_detail }} <p><small>-by {{ bookmark.user }}</small></p>
-        </div>
-        <div class="panel-footer">{{ bookmark.pub_date }}</div>
-    </div>
+        {% if bookmark.description %}
+        <li class="list-group-item">description: {{ bookmark.bookmark_description }}</li>
+        {% endif %}
+        <li class="list-group-item">{{ bookmark.url }}</li>
+    </ul>
+<h6>Clicks: {{ bookmark.click_count }}</h6>
+<a href="{% url 'bookmark_list' %}">return to bookmark list</a>
 
-{%  endblock %}
+{% endblock %}

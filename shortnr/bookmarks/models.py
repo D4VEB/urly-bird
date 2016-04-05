@@ -5,21 +5,23 @@ from django.utils import timezone
 
 from django.db import models
 
-# from hashids import Hashids
+from hashids import Hashids
 
 # Create your models here.
-#from hashids import Hashids
-
 
 class Bookmark(models.Model):
+    title = models.CharField(max_length=80)
     full_url = models.URLField(max_length=300)
     bookmark_description = models.CharField\
         (max_length=200, null=True, blank=True)
     # I used null=True and blank = True here
     # because the bookmark_description is optional
-    pub_date = models.DateTimeField(auto_now=True)
+    pub_date = models.DateTimeField(db_index=True, auto_now=True)
+    mod_date = models.DateTimeField(auto_now=True)
     # count = models.IntegerField(default=0)
+    user = models.ForeignKey(User)
 
+    @property
     def url_key(self):
         """
         This method will generate a hash id that can be used
@@ -28,7 +30,8 @@ class Bookmark(models.Model):
         hashid = Hashids()
         return hashid.encode(self.id)
 
-    def shortened_url(self):
+    @property
+    def short_url(self):
         """
         This method will take the unique has id and create
         a shortened URL for the bookmark.
@@ -37,8 +40,10 @@ class Bookmark(models.Model):
         that will redirect any user -- not just logged in
         users -- to the bookmark associated with that code."
         """
-        return "short/{}".format(self.url_key)
+        short_url = "short/{}".format(self.url_key)
+        return short_url
 
+    @property
     def bookmark_clicks(self):
         """
         Added this method because I need this info for the stats
@@ -48,6 +53,7 @@ class Bookmark(models.Model):
         """
         return self.click_set.count()
 
+    @property
     def last_month_clicks(self):
         """
         I added this method here to capture the number of clicks
@@ -57,8 +63,7 @@ class Bookmark(models.Model):
         return self.click_set.filter(pub_date__gte=last_month).count()
 
     def __str__(self):
-        return self.full_url
-        # TODO change the variable name here to match the variable name used above.
+        return self.title
 
 
 class Click(models.Model):

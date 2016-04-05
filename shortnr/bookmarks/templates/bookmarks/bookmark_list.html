@@ -1,4 +1,4 @@
-{% extends "bookmark_base.html" %}
+{% extends "bookmarks/bookmark_base.html" %}
 {% load bootstrap3 %}
 
 {% block title %}Shortnr - Bookmark List{% endblock %}
@@ -12,16 +12,23 @@
     {% endif %}
 
     {% if bookmarks %}
-    <div class="list-group">
-        {% for bookmark in bookmarks %}
-            <a href="{% url 'bookmark_detail' bookmark.id %}" class="list-group-item">
-            <h4 class="list-group-item-heading">{{ bookmark.bookmark_description }}</h4>
-            </a>
-        {% endfor %}
-    </div>
-    {% else %}
-        <h2>No bookmarks yet</h2>
-    {% endif %}
+        <ul class="list-group">
+            {% for bookmark in bookmarks %}
+                <br>
+                <li class="list-group-item list-group-item-success">
+                    <a href="{% url 'bookmark_detail' bookmark.id %}">{{ bookmark.title }}</a></li>
+                {% if bookmark.description %}
+                <li class="list-group-item">
+                    Description: {{ bookmark.bookmark_description }}</li>
+                {% endif %}
+
+                <li class="list-group-item">
+                    <a href="{% url 'redirect_link' bookmark.url_key %}">{{ bookmark.short_url }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <h2>No Bookmarks Saved Yet</h2>
+        {% endif %}
 
     {% bootstrap_pagination page_obj %}
 {% endblock %}

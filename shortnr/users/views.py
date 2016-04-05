@@ -16,6 +16,6 @@ class RegisterUser(CreateView):
     model = User
     form_class = UserCreationForm
     template_name_suffix = "_register"
-    success_url = reverse_lazy("bookmarks")
+    success_url = reverse_lazy("bookmark_list")
 
 
