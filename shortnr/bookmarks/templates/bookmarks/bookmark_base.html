@@ -15,18 +15,19 @@
     {% endblock %}
     </div>
 
-<! Using template extensions, display the titles of the
+    <! Using template extensions, display the titles of the
     [five most recent] bookmarks with links on each page >
+
     <div>
         <h3>Recent History (last 5 bookmarks)</h3>
         <ul class="list-group">
-            {% for bookmark in recent_five %}
+            {% for bookmark in request.session.recent_five %}
                 <li class="list-group-item">
-                    <a href="{% url 'bookmark_detail'%}>{{ bookmark.title }}
-                    </a></li>
+                    <a href="{% url 'bookmark_detail' bookmark.id %}">{{ bookmark.title }}</a>
+                </li>
             {% endfor %}
         </ul>
-
     </div>
+
 </body>
 </html>

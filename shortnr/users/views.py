@@ -14,6 +14,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import CreateView
 from django.views.generic import CreateView, UpdateView
 
+from users.forms import ProfilePicUpload
+
 
 class RegisterUser(CreateView):
     model = User
@@ -23,7 +25,7 @@ class RegisterUser(CreateView):
 
 class UpdateProfile(LoginRequiredMixin, UpdateView):
     model = User
-    form_class = ImageUpdateForm
+    form_class = ProfilePicUpload
     template_name_suffix = "_upload_profilepic"
     success_url = reverse_lazy("bookmark_list")
     pk_url_kwarg = "id"

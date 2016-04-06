@@ -48,7 +48,7 @@ class Bookmark(models.Model):
     def bookmark_clicks(self):
         """
         Added this method because I need this info for the stats
-        pageto track how many times each link has been clicked.
+        page to track how many times each link has been clicked.
         Used the suggested "Click" naming throughout per the
         homework directions.
         """

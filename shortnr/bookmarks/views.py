@@ -67,10 +67,13 @@ class BookmarkDetail(DetailView):
     context_object_name = "bookmark"
 
     def get_context_data(self, **kwargs):
+        """
+        Use the session to store the last 5 bookmarks seen or used.
+        """
         context = super().get_context_data(**kwargs)
-        recent_five = self.request.session.get("recent_five", {})
-        recent_five.annotate((self.object.id, self.object.title))
-        self.request.session["recent_five"] = recent_five
+        recent_five = self.request.session.get("recent_five", [])
+        recent_five.insert(0, {"id": self.object.id, "title": self.object.title})
+        self.request.session["recent_five"] = recent_five[:4]
         return context
 
 class UserList(ListView):
@@ -119,6 +122,10 @@ class UserDetail(ListView):
             return context
 
 class ShortLink(RedirectView):
+    """
+    Django documentation on RedirectView
+    https://docs.djangoproject.com/ja/1.9/ref/class-based-views/base/#redirectview
+    """
     permanent = False
     pattern_name = "redirect_link"
 
@@ -131,6 +138,6 @@ class ShortLink(RedirectView):
             Click.objects.create(bookmark=bookmark, user=self.request.user)
         else:
             Click.objects.create(bookmark=bookmark)
-        return bookmark
+        return bookmark.full_url
 
 

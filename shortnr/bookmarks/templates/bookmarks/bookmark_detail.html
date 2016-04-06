@@ -5,14 +5,15 @@
 {% block content %}
 
       <ul class="list-group">
-        <li class="list-group-item list-group-item-success">{{ bookmark.title }}</li>
+        <li class="list-group-item list-group-item-warning">{{ bookmark.title }}</li>
 
-        {% if bookmark.description %}
+        {% if bookmark.bookmark_description %}
         <li class="list-group-item">description: {{ bookmark.bookmark_description }}</li>
         {% endif %}
         <li class="list-group-item">{{ bookmark.url }}</li>
     </ul>
-<h6>Clicks: {{ bookmark.click_count }}</h6>
-<a href="{% url 'bookmark_list' %}">return to bookmark list</a>
+
+    <h6>Clicks: {{ bookmark.bookmark_clicks }}</h6>
+    <a href="{% url 'bookmark_list' %}">return to bookmark list</a>
 
 {% endblock %}

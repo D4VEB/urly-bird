@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^bookmarks/', include("bookmarks.urls")),
     url(r'^short/(?P<url_key>\w+)/$', ShortLink.as_view(),
         name="redirect_link"),
+    url(r'^users/', include("users.urls"))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

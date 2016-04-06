@@ -17,11 +17,11 @@ class Command(BaseCommand):
         https://docs.djangoproject.com/en/1.9/howto/outputting-csv/
         """
         past_two_days = timezone.now() - datetime.timedelta(days=2)
-        top_bookmarks = Bookmark.objects.filter(pub_date__lt=past_two_days)\
+        top_bookmarks = Bookmark.objects.filter(click__pub_date__gte=past_two_days)\
             .annotate(click_count=Count("click")).order_by("click_count")
 
-        with open("top_bookmarks.csv", newline='') as csvfile:
+        with open('top_bookmarks.csv', 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
-            writer.writerow(['Bookmark', 'Clicks in last two days'])
+            writer.writerow(['Bookmark', ' Clicks in last two days'])
             for bookmark in top_bookmarks:
-                writer.writerow([bookmark.title, bookmark.click_count ])
+                writer.writerow([bookmark.title, bookmark.bookmark_clicks])

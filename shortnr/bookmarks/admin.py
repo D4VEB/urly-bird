@@ -4,7 +4,7 @@ from bookmarks.models import Bookmark
 
 @admin.register(Bookmark)
 class BookmarkAdmin(admin.ModelAdmin):
-    list_display = ('full_url', 'bookmark_description', 'pub_date')
+    list_display = ('title', 'full_url', 'bookmark_description', 'pub_date')
     # ordering = ('-pub_date',)
 
 
